@@ -1,0 +1,59 @@
+{% extends ajax|yesno:"blogs/ajax.html,blogs/layout.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<header class="detail{% if blog.cover %} cover{% endif %}">
+  {% if blog.cover %}
+  <img src="{{MEDIA_URL}}{{blog.cover}}" alt="{{ blog.title }}">
+  {% endif %}
+  <h1>{{ blog.title }}</h1>
+</header>
+
+<main class="detail">
+  <div class="container">
+
+    {# ARTICLE #}
+    <div class="row">
+      <div class="col-xs-12 col-sm-2 date">
+	<h2>{{ blog.date|linebreaksbr }}</h2>
+      </div>
+      <div class="col-xs-12 col-sm-8">
+	<div id="text">{{ blog.text|safe }}</div>
+      </div>
+    </div>
+
+    {# COMMENTS #}
+    <div class="row" id="comments">
+      <div class="col-xs-12 col-sm-2 date">
+        <h2>Commentaires</h2>
+      </div>
+      <div class="col-xs-12 col-sm-8">
+
+	{% for comment in comments %}
+        <div class="comment">
+          <h3>{{ comment.pseudo }} <small>{{ comment.date }}</small></h3>
+          <p>{{ comment.text|linebreaks }}</p>
+	</div>
+	{% endfor %}
+
+	<form role="form" method="post" action="{% url 'blogs:postComment' blog.id %}" >
+	  {% csrf_token %}
+    <input type="text" style="display:none;" name="honeypot" value=""/>
+	  <div class="form-group">
+	    <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="votre pseudo" required>
+	  </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="antispam" name="antispam" placeholder="antispam: 3 + 4 = ?" required>
+    </div>
+    <div class="form-group">
+	    <textarea class="form-control" rows="3" name="text" placeholder="votre commentaire" required></textarea>
+	  </div>
+	  <input type="submit" class="btn btn-default" value="Poster">
+	</form>
+
+      </div>
+    </div>
+    {# end of .container #}
+  </div>
+</main>
+{% endblock %}

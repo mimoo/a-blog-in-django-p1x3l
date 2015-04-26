@@ -1,0 +1,27 @@
+{% extends ajax|yesno:"blogs/ajax.html,blogs/layout.html" %}
+
+{% block content %}
+<header class="index">
+  <h1>P1x3L</h1>
+</header>
+
+<main class="index">
+  <div class="container">
+    {% regroup blogs by group_date as blogs_by_date %}
+    {% for blogs_group in blogs_by_date %}
+    <section class="row">
+      <div class="col-xs-12 col-sm-4 date">
+        <h2>{{ blogs_group.grouper|linebreaksbr }}</h2>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <ul>
+	  {% for blog in blogs_group.list %}
+	  <li>+ <a href="{% url 'blogs:detail' blog.id blog.slug %}">{{ blog.title }}</a> <small><a href="{% url 'blogs:category' blog.category.name %}">[{{ blog.category.name }}]</a></small></li>
+	  {% endfor %}
+	</ul>
+      </div>
+    </section>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

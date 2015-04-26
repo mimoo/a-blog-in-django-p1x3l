@@ -1,0 +1,41 @@
+#text{
+    line-height:35px;
+}
+#text h1, #text h2, #text h3{
+    font-weight: 300;
+    padding:0;
+    margin:30px 0 30px;
+    font-size: 60px;
+    font-family: 'Open Sans';
+    color:orangered;
+}
+#text h1:first-child, #text h2:first-child{
+	margin-top:0;
+}
+#text h3{
+    font-size:35px;
+}
+#text img{
+    max-width:100%;
+    margin-bottom: 50px;
+    padding: 5px;
+    background-color: rgba(0,0,0,.8);
+}
+#text a:hover{
+    text-decoration:none;
+    color:#428BCA;
+    border-bottom: 1px #428BCA solid;
+}
+#text ul{
+    margin:20px 0;
+    list-style:inside;
+    padding: 0;
+}
+#text li{
+    margin-bottom: 10px;
+}
+#text .gist{
+    font-size:15px;
+    line-height:20px;
+    text-align:left;
+}
